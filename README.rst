@@ -1,9 +1,9 @@
 
 ==================================
-CCP
+Salt Formula Fuel CCP
 ==================================
 
-Container based OpenStack service controller.
+Fuel Container based OpenStack service controller.
 
 Sample pillars
 ==============
@@ -15,7 +15,7 @@ Single ccp service
     ccp:
       control:
         enabled: true
-        version: icehouse
+        version: xxx
 
 
 Read more
