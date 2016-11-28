@@ -1,0 +1,4 @@
+configs:
+  kibana:
+    port:
+      cont: 5601

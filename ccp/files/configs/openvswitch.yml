@@ -1,0 +1,3 @@
+configs:
+  ovs_db:
+    loglevel: info

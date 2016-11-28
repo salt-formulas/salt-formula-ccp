@@ -1,0 +1,6 @@
+configs:
+  heka:
+    max_procs: 2
+    service_pattern: ^k8s_(.-)%..*
+  hindsight_heka_tcp_port:
+    cont: 5565

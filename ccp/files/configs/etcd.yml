@@ -1,0 +1,11 @@
+configs:
+  etcd:
+    client_port:
+      cont: 2379
+    connection_attempts: 20
+    connection_delay: 5
+    server_port:
+      cont: 2380
+repos:
+- git_url: https://git.openstack.org/openstack/fuel-ccp-etcd
+  name: fuel-ccp-etcd

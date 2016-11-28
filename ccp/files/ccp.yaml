@@ -1,0 +1,38 @@
+{%- from "ccp/map.jinja" import control with context %}
+action:
+  auth_url: null
+  components: null
+  dry_run: false
+  export_dir: null
+  skip_os_cleanup: false
+kubernetes:
+  ca_cert: null
+  cert_file: null
+  insecure: null
+  key_file: null
+  namespace: {{ control.get('namespace', 'ccp') }}
+  server: {{ control.kubernetes.get('protocol', 'http') }}://{{ control.kubernetes.host }}:{{ control.kubernetes.port }}
+verbose_level: 1
+log_file: null
+debug: {{ control.debug }}
+default_log_levels:
+- glanceclient=INFO
+- keystoneauth=INFO
+- neutronclient=INFO
+- novaclient=INFO
+- requests=WARN
+- stevedore=INFO
+- urllib3=WARN
+files: {{ control.files|yaml }}
+images: {{ control.images|yaml }}
+nodes: {{ control.nodes|yaml }}
+replicas: {{ control.replicas|yaml }}
+versions: {{ control.versions|yaml }}
+configs: {{ configs|yaml }}
+url: {{ url|yaml }}
+repositories:
+  clone: true
+  clone_concurrency: 8
+  path: /srv/ccp/repos/
+  repo: {{ repos|yaml }}
+  skip_empty: true

@@ -1,0 +1,18 @@
+configs:
+  mariadb:
+    port:
+      cont: 3306
+  service:
+    database: mariadb
+  db:
+    max_timeout: 60
+    root_password: {{ control.database.root_password }}
+repos:
+- git_url: https://git.openstack.org/openstack/fuel-ccp-mariadb
+  name: fuel-ccp-mariadb
+url:
+  mariadb:
+    debian:
+      keyid: '0xcbcb082a1bb943db'
+      keyserver: hkp://keyserver.ubuntu.com:80
+      repo: http://lon1.mirrors.digitalocean.com/mariadb/repo/10.1/debian

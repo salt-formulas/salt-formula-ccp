@@ -1,0 +1,15 @@
+configs:
+  opencontrail:
+    control_port:
+      cont: 8083
+    dns_introspect_port:
+      cont: 8092
+    dns_xmpp_port:
+      cont: 8093
+    named_port:
+      cont: 53
+    xmpp_port:
+      cont: 5269
+repos:
+- git_url: https://github.com/Kshatrix/ccp-docker-opencontrail.git
+  name: ccp-docker-opencontrail

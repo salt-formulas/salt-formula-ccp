@@ -11,28 +11,6 @@ builder:
   push: true
   workers: 8
 configs:
-  ceph:
-    fsid: Changeme
-    mon_host: Changeme
-  cinder:
-    api_port:
-      cont: 8776
-      ingress: volume
-    ceph:
-      backup_pool_name: backup
-      enable: false
-      key: Changeme
-      pool_name: volumes
-      rbd_secret_uuid: Changeme
-      username: cinder
-    db:
-      name: cinder
-      password: password
-      username: cinder
-    debug: false
-    enabled_backends: rbd
-    password: password
-    username: cinder
   cron:
     rotate:
       days: 6
@@ -42,199 +20,17 @@ configs:
   db:
     max_timeout: 60
     root_password: password
-  elasticsearch:
-    cluster_port:
-      cont: 9300
-    port:
-      cont: 9200
-    retention_period: 30
-  etcd:
-    client_port:
-      cont: 2379
-    connection_attempts: 20
-    connection_delay: 5
-    server_port:
-      cont: 2380
-  glance:
-    api_port:
-      cont: 9292
-      ingress: image
-    bootstrap:
-      enable: false
-      image:
-        disk_format: qcow2
-        name: cirros
-        url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
-    ceph:
-      enable: false
-      key: Changeme
-      pool_name: images
-      username: glance
-    db:
-      name: glance
-      password: password
-      username: glance
-    debug: false
-    password: password
-    registry_port:
-      cont: 9191
-    swift:
-      enable: false
-      store_container: glance
-      store_create_container_on_put: true
-    user: glance
-  grafana:
-    host: grafana
-    password: admin
-    port:
-      cont: 3000
-    user: admin
-  heat:
-    api_port:
-      cont: 8004
-      ingress: orchestration
-    db:
-      name: heat
-      password: password
-      username: heat
-    debug: false
-    password: password
-    user: heat
-  heka:
-    max_procs: 2
-    service_pattern: ^k8s_(.-)%..*
   hindsight_heka_tcp_port:
     cont: 5565
-  horizon:
-    port:
-      cont: 80
-      ingress: horizon
-    secret_key: secret
-    wsgi:
-      processes: 6
-      threads: 15
-  influxdb:
-    database: ccp
-    host: influxdb
-    password: ''
-    port:
-      cont: 8086
-    user: ''
   ingress:
     domain: external
     enabled: false
     port: 8443
   k8s_external_ip: 172.16.10.107
-  keystone:
-    admin_port:
-      cont: 35357
-    credential_key: 2jjLrgOLvI-wj7g-8058SSCw0-ZnL4Ghg5cLuBirxL8=
-    db:
-      name: keystone
-      password: password
-      username: keystone
-    debug: false
-    fernet_key: ZAabsQIXsSW7Ez52UZRqUXDz87y9+R+mbxVZ38gRmjg=
-    public_port:
-      cont: 5000
-      ingress: identity
-    wsgi:
-      processes: 6
-      threads: 1
-  kibana:
-    port:
-      cont: 5601
   mariadb:
     port:
       cont: 3306
-  memcached:
-    address: 0.0.0.0
-    port:
-      cont: 11211
-    ram: 256
   namespace: ccp
-  neutron:
-    bootstrap:
-      external:
-        enable: false
-        gateway: changeme
-        nameserver: changeme
-        net_name: ext-net
-        network: changeme
-        physnet: changeme
-        pool:
-          end: changeme
-          start: changeme
-        subnet_name: ext-subnet
-      internal:
-        enable: true
-        gateway: 10.0.1.1
-        net_name: int-net
-        network: 10.0.1.0/24
-        subnet_name: int-subnet
-      router:
-        name: ext-router
-    calico:
-      etcd_host: etcd-k8s
-      etcd_port: 2379
-    core_plugin: ml2
-    db:
-      name: neutron
-      password: password
-      username: neutron
-    enable_lbaas: false
-    enable_qos: false
-    logging_debug: false
-    ovsdb:
-      connection: unix:/run/openvswitch/db.sock
-      interface: native
-    physnets:
-    - bridge_name: br-ex
-      flat: true
-      interface: eth2
-      name: physnet1
-      vlan_range: false
-    plugin_agent: openvswitch
-    server_port:
-      cont: 9696
-      ingress: network
-  nova:
-    allocation_ratio:
-      cpu: 0.0
-      disk: 0.0
-      ram: 0.0
-    api_port:
-      cont: 8774
-      ingress: compute
-    ceph:
-      enable: false
-      pool_name: vms
-    console: novnc
-    db:
-      api_name: nova-api
-      name: nova
-      password: password
-      username: nova
-    logging_debug: false
-    metadata:
-      port:
-        cont: 8775
-      secret: password
-    novncproxy_port:
-      cont: 6080
-      ingress: console
-    virt_type: kvm
-  opencontrail:
-    control_port:
-      cont: 8083
-    dns_introspect_port:
-      cont: 8092
-    dns_xmpp_port:
-      cont: 8093
-    named_port:
-      cont: 53
-    xmpp_port:
-      cont: 5269
   openstack:
     project_name: admin
     role_name: admin
@@ -244,19 +40,6 @@ configs:
     loglevel: info
   private_interface: ens3
   public_interface: ens4
-  rabbitmq:
-    erlang_cookie: erlang_cookie
-    node_startup_timeout: 180
-    password: password
-    port:
-      cont: 5672
-      node: 32672
-    user: rabbitmq
-  radosgw:
-    key: Changeme
-    port:
-      cont: 7480
-      ingress: object-store
   service:
     database: mariadb
   snap:
@@ -309,49 +92,6 @@ repositories:
   clone: true
   clone_concurrency: 8
   path: /root/ccp-repos/
-  repos:
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-ceph
-    name: fuel-ccp-ceph
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-cinder
-    name: fuel-ccp-cinder
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-debian-base
-    name: fuel-ccp-debian-base
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-entrypoint
-    name: fuel-ccp-entrypoint
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-etcd
-    name: fuel-ccp-etcd
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-glance
-    name: fuel-ccp-glance
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-heat
-    name: fuel-ccp-heat
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-horizon
-    name: fuel-ccp-horizon
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-ironic
-    name: fuel-ccp-ironic
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-keystone
-    name: fuel-ccp-keystone
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-mariadb
-    name: fuel-ccp-mariadb
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-memcached
-    name: fuel-ccp-memcached
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-murano
-    name: fuel-ccp-murano
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-neutron
-    name: fuel-ccp-neutron
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-nova
-    name: fuel-ccp-nova
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-openstack-base
-    name: fuel-ccp-openstack-base
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-rabbitmq
-    name: fuel-ccp-rabbitmq
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-sahara
-    name: fuel-ccp-sahara
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-searchlight
-    name: fuel-ccp-searchlight
-  - git_url: https://git.openstack.org/openstack/fuel-ccp-stacklight
-    name: fuel-ccp-stacklight
-  - git_url: https://github.com/Kshatrix/ccp-docker-opencontrail.git
-    name: ccp-docker-opencontrail
   skip_empty: true
 roles:
   compute:

@@ -1,0 +1,7 @@
+configs:
+  grafana:
+    host: grafana
+    password: admin
+    port:
+      cont: 3000
+    user: admin

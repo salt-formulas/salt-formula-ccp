@@ -1,0 +1,9 @@
+configs:
+  horizon:
+    port:
+      cont: 80
+      ingress: horizon
+    secret_key: secret
+    wsgi:
+      processes: 6
+      threads: 15

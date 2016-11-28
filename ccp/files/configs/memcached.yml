@@ -1,0 +1,9 @@
+configs:
+  memcached:
+    address: 0.0.0.0
+    port:
+      cont: 11211
+    ram: 256
+repos:
+- git_url: https://git.openstack.org/openstack/fuel-ccp-memcached
+  name: fuel-ccp-memcached

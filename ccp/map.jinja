@@ -1,29 +1,26 @@
 
-{%- set source_engine = salt['pillar.get']('ccp:control:source:engine') %}
-
 {%- load_yaml as base_defaults %}
-{%- if source_engine == 'git' %}
 Debian:
   pkgs:
-  - python-psycopg2
+  - python3-dev
+  - python3-pip
+  - python-virtualenv
+  - python-netaddr
+  - python-setuptools
+  - gcc
+  source:
+    engine: git
+    address: https://git.openstack.org/openstack/fuel-ccp
+    port: 8123
   dir:
-    base: /srv/ccp/venv
-    home: /var/lib/ccp
-    workspace: /srv/ccp/workspace
-RedHat:
-  pkgs:
-  - python-psycopg2
-  dir:
-    base: /srv/ccp/venv
-    home: /var/lib/ccp
-    workspace: /srv/ccp/workspace
-{%- else %}
-Debian:
-  pkgs:
-  - ccp
-  dir:
-    base: /usr/lib/ccp
-{%- endif %}
+    base: /srv/ccp
+  config:
+    engine: local
+  user: ccp
+  images: {}
+  versions: {}
+  replicas: {}
+  files: {}
 {%- endload %}
 
 {%- set control = salt['grains.filter_by'](base_defaults, merge=salt['pillar.get']('ccp:control')) %}

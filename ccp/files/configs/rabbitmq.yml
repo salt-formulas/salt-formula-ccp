@@ -1,0 +1,12 @@
+configs:
+  rabbitmq:
+    erlang_cookie: erlang_cookie
+    node_startup_timeout: 180
+    password: password
+    port:
+      cont: 5672
+      node: 32672
+    user: rabbitmq
+repos:
+- git_url: https://git.openstack.org/openstack/fuel-ccp-rabbitmq
+  name: fuel-ccp-rabbitmq

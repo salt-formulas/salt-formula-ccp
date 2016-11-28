@@ -1,0 +1,67 @@
+builder:
+  build_base_images_if_not_exist: true
+  keep_image_tree_consistency: true
+  no_cache: false
+  push: true
+  workers: 8
+registry:
+  address: localhost:31500
+  insecure: false
+  password: ''
+  timeout: 300
+  username: ''
+repositories:
+  clone: true
+  clone_concurrency: 8
+  path: /srv/ccp/repos/
+  skip_empty: true
+sources:
+  openstack/cinder:
+    git_ref: stable/newton
+    git_url: https://github.com/openstack/cinder.git
+  openstack/glance:
+    git_ref: stable/newton
+    git_url: https://github.com/openstack/glance.git
+  openstack/heat:
+    git_ref: stable/newton
+    git_url: https://github.com/openstack/heat.git
+  openstack/horizon:
+    git_ref: stable/newton
+    git_url: https://github.com/openstack/horizon.git
+  openstack/keystone:
+    git_ref: stable/newton
+    git_url: https://github.com/openstack/keystone.git
+  openstack/networking-calico:
+    git_ref: master
+    git_url: https://github.com/openstack/networking-calico.git
+  openstack/neutron:
+    git_ref: stable/newton
+    git_url: https://github.com/openstack/neutron.git
+  openstack/nova:
+    git_ref: stable/newton
+    git_url: https://github.com/openstack/nova.git
+  openstack/requirements:
+    git_ref: stable/newton
+    git_url: https://git.openstack.org/openstack/requirements.git
+  openstack/sahara-dashboard:
+    git_ref: stable/newton
+    git_url: https://git.openstack.org/openstack/sahara-dashboard.git
+  projectcalico/calico:
+    git_ref: 1.4.3
+    git_url: https://github.com/projectcalico/felix.git
+  projectcalico/libcalico:
+    git_ref: v0.17.0
+    git_url: https://github.com/projectcalico/libcalico.git
+url:
+  ceph:
+    debian:
+      keyid: 460F3994
+      keyserver: hkp://keyserver.ubuntu.com:80
+      repo: http://eu.ceph.com/debian-jewel
+  debian: http://httpredir.debian.org/debian
+  debian_security: http://security.debian.org
+  mariadb:
+    debian:
+      keyid: '0xcbcb082a1bb943db'
+      keyserver: hkp://keyserver.ubuntu.com:80
+      repo: http://lon1.mirrors.digitalocean.com/mariadb/repo/10.1/debian
