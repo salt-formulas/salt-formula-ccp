@@ -23,12 +23,12 @@ default_log_levels:
 - requests=WARN
 - stevedore=INFO
 - urllib3=WARN
-files: {{ control.files|yaml }}
 images: {{ control.images|yaml }}
 nodes: {{ control.nodes|yaml }}
 replicas: {{ control.replicas|yaml }}
 versions: {{ control.versions|yaml }}
 configs: {{ configs|yaml }}
+files: {{ files|yaml }}
 url: {{ url|yaml }}
 repositories:
   clone: true

@@ -79,6 +79,7 @@ configs:
 {%- endload %}
 
 {%- set configs = base_config.configs %}
+{%- set files = {} %}
 {%- set repos = {} %}
 {%- set url = {} %}
 
@@ -96,6 +97,10 @@ configs:
 {%- do repos.update(service_yaml.repos) %}
 {%- endif %}
 
+{%- if service_yaml.files is defined and service_yaml.files is mapping %}
+{%- do files.update(service_yaml.files) %}
+{%- endif %}
+
 {%- if service_yaml.url is defined and service_yaml.url is mapping %}
 {%- do url.update(service_yaml.url) %}
 {%- endif %}
@@ -110,9 +115,10 @@ ccp_config:
   - user: ccp
   - mode: 600
   - defaults:
-      configs: {{ configs|yaml }}
-      repos: {{ repos|yaml }}
-      url: {{ url|yaml }}
+      configs: {{ configs }}
+      files: {{ files }}
+      repos: {{ repos }}
+      url: {{ url }}
   - require:
     - file: ccp_config_dir
 
