@@ -6,5 +6,4 @@ parameters:
   ccp:
     control:
       enabled: true
-      bind:
-        address: 0.0.0.0
+      namespace: ccp
