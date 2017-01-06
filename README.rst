@@ -15,7 +15,12 @@ Single ccp service
     ccp:
       control:
         namespace: ccp
-        docker_registry: true
+        registry:
+          enabled: true
+          host: localhost:5000
+          insecure: false
+          password: "''"
+          username: "''"
         private_interface: eth0
         public_interface: eth1
         database:

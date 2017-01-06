@@ -48,6 +48,7 @@ ccp_source:
 ccp_install:
   cmd.watch:
   - name: . {{ control.dir.base }}/bin/activate; python setup.py install
+  - cwd: {{ control.dir.base }}/fuel
   - watch:
     - git: ccp_source
 
@@ -80,21 +81,23 @@ configs:
 
 {%- set configs = base_config.configs %}
 {%- set files = {} %}
-{%- set repos = {} %}
+{%- set repos = [] %}
 {%- set url = {} %}
 
 {%- for service in control.services %}
 
-{%- set fragment_file = 'ccp/files/configs/'+service_name+'/.yml' %}
-{%- macro load_grains_file() %}{% include fragment_file ignore missing %}{% endmacro %}
+{%- set fragment_file = 'ccp/files/configs/'+service+'.yml' %}
+{%- macro load_grains_file() %}{% include fragment_file %}{% endmacro %}
 {%- set service_yaml = load_grains_file()|load_yaml %}
 
 {%- if service_yaml.configs is defined and service_yaml.configs is mapping %}
 {%- do configs.update(service_yaml.configs) %}
 {%- endif %}
 
-{%- if service_yaml.repos is defined and service_yaml.repos is mapping %}
-{%- do repos.update(service_yaml.repos) %}
+{%- if service_yaml.repos is defined and service_yaml.repos is list %}
+{%- for repo in service_yaml.repos %}
+{%- do repos.append(repo) %}
+{%- endfor %}
 {%- endif %}
 
 {%- if service_yaml.files is defined and service_yaml.files is mapping %}
@@ -120,7 +123,6 @@ ccp_config:
       repos: {{ repos }}
       url: {{ url }}
   - require:
-    - file: ccp_config_dir
+    - file: ccp_dir
 
 {%- endif %}
-x

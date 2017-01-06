@@ -23,16 +23,30 @@ default_log_levels:
 - requests=WARN
 - stevedore=INFO
 - urllib3=WARN
-images: {{ control.images|yaml }}
-nodes: {{ control.nodes|yaml }}
-replicas: {{ control.replicas|yaml }}
-versions: {{ control.versions|yaml }}
-configs: {{ configs|yaml }}
-files: {{ files|yaml }}
-url: {{ url|yaml }}
+images:
+  {{ control.images|yaml(False)|indent(2) }}
+roles:
+  {{ control.roles|yaml(False)|indent(2) }}
+nodes:
+  {{ control.nodes|yaml(False)|indent(2) }}
+replicas:
+  {{ control.replicas|yaml(False)|indent(2) }}
+versions:
+  {{ control.versions|yaml(False)|indent(2) }}
+configs:
+  {{ configs|yaml(False)|indent(2) }}
+files:
+  {{ files|yaml(False)|indent(2) }}
+url:
+  {{ url|yaml(False)|indent(2) }}
 repositories:
   clone: true
   clone_concurrency: 8
   path: /srv/ccp/repos/
-  repo: {{ repos|yaml }}
+  repos:
+    {{ repos|yaml(False)|indent(4) }}
   skip_empty: true
+
+{%- if control.registry.enabled %}
+{%- include "ccp/files/registry.yaml" %}
+{%- endif %}
