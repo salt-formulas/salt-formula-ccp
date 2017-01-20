@@ -12,6 +12,9 @@ parameters:
     control:
       enabled: true
       namespace: ${_param:ccp_control_namespace}
+      kubernetes:
+        host: ${_param:ccp_kubernetes_host}
+        port: 8080
       source:
         engine: git
         address: https://github.com/openstack/fuel-ccp.git
