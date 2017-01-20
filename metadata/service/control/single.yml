@@ -5,7 +5,7 @@ classes:
 parameters:
   _param:
     ccp_public_interface: eth0
-    ccp_private_interface: eth1
+    ccp_private_interface: eth0
     ccp_kubernetes_host: 127.0.0.1
     ccp_control_namespace: ccp
   ccp:
