@@ -23,30 +23,44 @@ default_log_levels:
 - requests=WARN
 - stevedore=INFO
 - urllib3=WARN
+{%- if control.images is defined %}
 images:
   {{ control.images|yaml(False)|indent(2) }}
+{%- endif %}
+{%- if control.roles is defined %}
 roles:
   {{ control.roles|yaml(False)|indent(2) }}
+{%- endif %}
+{%- if control.nodes is defined %}
 nodes:
   {{ control.nodes|yaml(False)|indent(2) }}
+{%- endif %}
+{%- if control.replicas is defined %}
 replicas:
   {{ control.replicas|yaml(False)|indent(2) }}
+{%- endif %}
+{%- if control.versions is defined %}
 versions:
   {{ control.versions|yaml(False)|indent(2) }}
+{%- endif %}
+{%- if control.configs is defined %}
 configs:
-  {{ configs|yaml(False)|indent(2) }}
+  {{ control.configs|yaml(False)|indent(2) }}
+{%- endif %}
+{%- if control.files is defined %}
 files:
-  {{ files|yaml(False)|indent(2) }}
+  {{ control.files|yaml(False)|indent(2) }}
+{%- endif %}
+{%- if control.url is defined %}
 url:
-  {{ url|yaml(False)|indent(2) }}
+  {{ control.url|yaml(False)|indent(2) }}
+{%- endif %}
+{%- if control.repos is defined %}
 repositories:
   clone: true
   clone_concurrency: 8
-  path: /srv/ccp/repos/
+  path: {{ control.dir.base }}/repos/
   repos:
-    {{ repos|yaml(False)|indent(4) }}
+    {{ control.repos|yaml(False)|indent(4) }}
   skip_empty: true
-
-{%- if control.registry.enabled %}
-{%- include "ccp/files/registry.yaml" %}
 {%- endif %}

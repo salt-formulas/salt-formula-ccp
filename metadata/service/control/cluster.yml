@@ -1,9 +1,0 @@
-applications:
-- ccp
-classes:
-- service.ccp.support
-parameters:
-  ccp:
-    control:
-      enabled: true
-      namespace: ccp

@@ -54,62 +54,6 @@ ccp_install:
 
 {%- endif %}
 
-{%- load_yaml as base_config %}
-configs:
-  cron:
-    rotate:
-      days: 6
-      interval: daily
-      maxsize: 100M
-      minsize: 1M
-  ingress:
-    domain: external
-    enabled: false
-    port: 8443
-  k8s_external_ip: {{ control.kubernetes.external_address }}
-  namespace: {{ control.get('namespace', 'ccp') }}
-  openstack:
-    project_name: admin
-    role_name: admin
-    user_name: admin
-    user_password: {{ control.identity.admin_password }}
-  private_interface: {{ control.private_interface }}
-  public_interface: {{ control.public_interface }}
-  snap:
-    log_level: 3
-{%- endload %}
-
-{%- set configs = base_config.configs %}
-{%- set files = {} %}
-{%- set repos = [] %}
-{%- set url = {} %}
-
-{%- for service in control.services %}
-
-{%- set fragment_file = 'ccp/files/configs/'+service+'.yml' %}
-{%- macro load_grains_file() %}{% include fragment_file %}{% endmacro %}
-{%- set service_yaml = load_grains_file()|load_yaml %}
-
-{%- if service_yaml.configs is defined and service_yaml.configs is mapping %}
-{%- do configs.update(service_yaml.configs) %}
-{%- endif %}
-
-{%- if service_yaml.repos is defined and service_yaml.repos is list %}
-{%- for repo in service_yaml.repos %}
-{%- do repos.append(repo) %}
-{%- endfor %}
-{%- endif %}
-
-{%- if service_yaml.files is defined and service_yaml.files is mapping %}
-{%- do files.update(service_yaml.files) %}
-{%- endif %}
-
-{%- if service_yaml.url is defined and service_yaml.url is mapping %}
-{%- do url.update(service_yaml.url) %}
-{%- endif %}
-
-{%- endfor %}
-
 ccp_config:
   file.managed:
   - name: {{ control.dir.base }}/.ccp.yaml
@@ -117,11 +61,6 @@ ccp_config:
   - template: jinja
   - user: ccp
   - mode: 600
-  - defaults:
-      configs: {{ configs }}
-      files: {{ files }}
-      repos: {{ repos }}
-      url: {{ url }}
   - require:
     - file: ccp_dir
 
