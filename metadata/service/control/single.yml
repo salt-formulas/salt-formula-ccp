@@ -12,6 +12,10 @@ parameters:
     control:
       enabled: true
       namespace: ${_param:ccp_control_namespace}
+      source:
+        engine: git
+        address: https://github.com/openstack/fuel-ccp.git
+        branch: master
       configs:
         cron:
           rotate:

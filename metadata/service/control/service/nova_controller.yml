@@ -1,0 +1,40 @@
+parameters:
+  ccp:
+    control:
+      configs:
+        nova:
+          allocation_ratio:
+            cpu: 0.0
+            disk: 0.0
+            ram: 0.0
+          api_port:
+            cont: 8774
+            ingress: compute
+          ceph:
+            enable: false
+            pool_name: vms
+          console: novnc
+          db:
+            api_name: nova
+            name: nova
+            password: password
+            username: nova
+          logging_debug: false
+          metadata:
+            port:
+              cont: 8775
+            secret: password
+          novncproxy_port:
+            cont: 6080
+            ingress: console
+          virt_type: kvm
+      repos:
+      - git_url: https://git.openstack.org/openstack/fuel-ccp-nova
+        name: fuel-ccp-nova
+      roles:
+        controller:
+        - nova-api
+        - nova-conductor
+        - nova-consoleauth
+        - nova-novncproxy
+        - nova-scheduler
