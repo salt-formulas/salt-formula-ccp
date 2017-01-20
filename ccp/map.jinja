@@ -23,7 +23,9 @@ Debian:
   images: {}
   versions: {}
   replicas: {}
+  replicas: {}
   files: {}
+  url: {}
 {%- endload %}
 
 {%- set control = salt['grains.filter_by'](base_defaults, merge=salt['pillar.get']('ccp:control')) %}
