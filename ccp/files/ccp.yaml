@@ -8,7 +8,7 @@ action:
 kubernetes:
   ca_cert: null
   cert_file: null
-  insecure: null
+  insecure: false
   key_file: null
   namespace: {{ control.get('namespace', 'ccp') }}
   server: {{ control.kubernetes.get('protocol', 'http') }}://{{ control.kubernetes.host }}:{{ control.kubernetes.port }}
