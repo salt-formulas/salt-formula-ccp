@@ -38,7 +38,7 @@ ccp_source:
 
 ccp_venv:
   virtualenv.manage:
-  - name: {{ control.dir.base }}
+  - name: {{ control.dir.base }}/venv
   - system_site_packages: True
   - requirements: {{ control.dir.base }}/fuel/requirements.txt
   - python: /usr/bin/python3
@@ -47,7 +47,7 @@ ccp_venv:
 
 ccp_install:
   cmd.watch:
-  - name: . {{ control.dir.base }}/bin/activate; python setup.py install
+  - name: . {{ control.dir.base }}/venv/bin/activate; python setup.py install
   - cwd: {{ control.dir.base }}/fuel
   - require:
     - virtualenv: ccp_venv
