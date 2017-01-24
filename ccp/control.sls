@@ -5,14 +5,6 @@ ccp_packages:
   pkg.installed:
   - names: {{ control.pkgs }}
 
-{{ control.dir.base }}:
-  virtualenv.manage:
-  - system_site_packages: True
-  - requirements: salt://ccp/files/requirements.txt
-  - python: /usr/bin/python3
-  - require:
-    - pkg: ccp_packages
-
 ccp_user:
   user.present:
   - name: ccp
@@ -21,8 +13,6 @@ ccp_user:
   - home: {{ control.dir.base }}
   - groups:
     - docker
-  - require:
-    - virtualenv: {{ control.dir.base }}
 
 ccp_dir:
   file.directory:
@@ -32,7 +22,7 @@ ccp_dir:
   - makedirs: true
   - user: ccp
   - require:
-    - virtualenv: {{ control.dir.base }}
+    - user: ccp_user
 
 {%- if control.source.engine == 'git' %}
 
@@ -46,10 +36,21 @@ ccp_source:
   {%- endif %}
   - force_reset: {{ control.source.force_reset|default(False) }}
 
+ccp_venv:
+  virtualenv.manage:
+  - name: {{ control.dir.base }}
+  - system_site_packages: True
+  - requirements: {{ control.dir.base }}/fuel/requirements.txt
+  - python: /usr/bin/python3
+  - require:
+    - git: ccp_source
+
 ccp_install:
   cmd.watch:
   - name: . {{ control.dir.base }}/bin/activate; python setup.py install
   - cwd: {{ control.dir.base }}/fuel
+  - require:
+    - virtualenv: ccp_venv
   - watch:
     - git: ccp_source
 
