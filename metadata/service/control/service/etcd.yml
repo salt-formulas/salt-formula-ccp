@@ -1,3 +1,5 @@
+classes:
+- service.ccp.control.service.base
 parameters:
   ccp:
     control:
