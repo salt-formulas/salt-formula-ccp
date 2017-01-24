@@ -35,23 +35,30 @@ ccp_source:
   - branch: {{ control.source.branch|default(control.source.revision) }}
   {%- endif %}
   - force_reset: {{ control.source.force_reset|default(False) }}
+  - user: ccp
+  - require:
+    - user: ccp_user
 
 ccp_venv:
   virtualenv.manage:
   - name: {{ control.dir.base }}/venv
   - system_site_packages: True
+  - user: ccp
   - requirements: {{ control.dir.base }}/fuel/requirements.txt
   - python: /usr/bin/python3
   - require:
+    - user: ccp_user
     - git: ccp_source
 
 ccp_install:
   cmd.watch:
   - name: . {{ control.dir.base }}/venv/bin/activate; python setup.py install
   - cwd: {{ control.dir.base }}/fuel
+  - user: ccp
   - require:
     - virtualenv: ccp_venv
   - watch:
+    - user: ccp_user
     - git: ccp_source
 
 {%- endif %}
