@@ -1,3 +1,5 @@
+classes:
+- service.ccp.control.service.base
 parameters:
   _param:
     keystone_credential_key: 2jjLrgOLvI-wj7g-8058SSCw0-ZnL4Ghg5cLuBirxL8=
