@@ -21,6 +21,16 @@ ccp_user:
   - require:
     - virtualenv: {{ control.dir.base }}
 
+ccp_repos_dir:
+  file.directory:
+  - names:
+    - {{ control.dir.base }}/repos/
+  - mode: 755
+  - makedirs: true
+  - user: ccp
+  - require:
+    - user: ccp_user
+
 ccp_log_dir:
   file.directory:
   - names:
