@@ -61,4 +61,11 @@ ccp_config:
   - require:
     - virtualenv: {{ control.dir.base }}
 
+ccp_validate:
+  cmd.watch:
+  - name: {{ control.dir.base }}/bin/ccp validate
+  - user: ccp
+  - watch:
+    - file: ccp_config
+
 {%- endif %}
