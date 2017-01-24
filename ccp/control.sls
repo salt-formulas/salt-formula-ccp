@@ -17,6 +17,7 @@ ccp_user:
   user.present:
   - name: ccp
   - system: true
+  - shell: /bin/bash
   - home: {{ control.dir.base }}
   - groups:
     - docker
