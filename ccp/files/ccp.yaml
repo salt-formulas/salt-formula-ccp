@@ -28,6 +28,7 @@ debug: {{ control.debug }}
 repositories:
   clone: true
   clone_concurrency: 8
+  entrypoint_repo_name: entrypoint
   path: {{ control.dir.base }}/repos/
   repos:
     {{ control.repos|yaml(False)|indent(4) }}

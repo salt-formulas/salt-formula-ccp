@@ -27,3 +27,8 @@ parameters:
         k8s_external_ip: ${_param:ccp_kubernetes_host}
         private_interface: ${_param:ccp_private_interface}
         public_interface: ${_param:ccp_public_interface}
+      repos:
+      - git_url: https://git.openstack.org/openstack/fuel-ccp-debian-base
+        name: debian-base
+      - git_url: https://git.openstack.org/openstack/fuel-ccp-entrypoint
+        name: entrypoint
