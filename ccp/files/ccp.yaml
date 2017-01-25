@@ -16,6 +16,7 @@ debug: {{ control.debug }}
     'nodes',
     'replicas',
     'roles',
+    'sources',
     'url',
     'versions',
 ]%}
