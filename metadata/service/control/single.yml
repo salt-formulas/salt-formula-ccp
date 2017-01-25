@@ -20,18 +20,11 @@ parameters:
         address: https://github.com/openstack/fuel-ccp.git
         branch: master
       configs:
-        cron:
-          rotate:
-            days: 6
-            interval: daily
-            maxsize: 100M
-            minsize: 1M
         ingress:
           domain: external
           enabled: false
           port: 8443
         k8s_external_ip: ${_param:ccp_kubernetes_host}
-        namespace: ccp
         openstack:
           project_name: admin
           role_name: admin
@@ -39,5 +32,3 @@ parameters:
           user_password: ${_param:keystone_admin_password}
         private_interface: ${_param:ccp_private_interface}
         public_interface: ${_param:ccp_public_interface}
-        snap:
-          log_level: 3
