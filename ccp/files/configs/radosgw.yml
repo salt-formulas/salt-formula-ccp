@@ -1,6 +1,0 @@
-configs:
-  radosgw:
-    key: Changeme
-    port:
-      cont: 7480
-      ingress: object-store

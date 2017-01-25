@@ -1,8 +1,0 @@
-configs:
-  influxdb:
-    database: ccp
-    host: influxdb
-    password: ''
-    port:
-      cont: 8086
-    user: ''

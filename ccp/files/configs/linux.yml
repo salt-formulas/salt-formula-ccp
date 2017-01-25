@@ -1,8 +1,0 @@
-repos:
-- git_url: https://git.openstack.org/openstack/fuel-ccp-debian-base
-  name: fuel-ccp-debian-base
-- git_url: https://git.openstack.org/openstack/fuel-ccp-entrypoint
-  name: fuel-ccp-entrypoint
-url:
-  debian: http://httpredir.debian.org/debian
-  debian_security: http://security.debian.org
