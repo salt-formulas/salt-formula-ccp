@@ -8,6 +8,7 @@ parameters:
     ccp_private_interface: eth0
     ccp_kubernetes_host: 127.0.0.1
     ccp_control_namespace: ccp
+    ccp_registry_address: null
   ccp:
     control:
       enabled: true
@@ -27,6 +28,8 @@ parameters:
         k8s_external_ip: ${_param:ccp_kubernetes_host}
         private_interface: ${_param:ccp_private_interface}
         public_interface: ${_param:ccp_public_interface}
+      registry:
+        address: ${_param:ccp_registry_address}
       repos:
       - git_url: https://git.openstack.org/openstack/fuel-ccp-debian-base
         name: debian-base

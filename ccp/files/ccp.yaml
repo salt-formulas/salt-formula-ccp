@@ -34,3 +34,9 @@ repositories:
     {{ control.repos|yaml(False)|indent(4) }}
   skip_empty: true
 {%- endif %}
+{%- if control.registry.address %}
+registry:
+  address: {{ control.registry.address }}
+builder:
+  push: true
+{%- endif %}
