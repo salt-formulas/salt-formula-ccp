@@ -1,3 +1,0 @@
-repos:
-- git_url: https://git.openstack.org/openstack/fuel-ccp-murano
-  name: fuel-ccp-murano

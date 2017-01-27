@@ -1,66 +1,43 @@
 {%- from "ccp/map.jinja" import control with context %}
-action:
-  auth_url: null
-  components: null
-  dry_run: false
-  export_dir: null
-  skip_os_cleanup: false
 kubernetes:
   ca_cert: null
   cert_file: null
-  insecure: null
+  insecure: false
   key_file: null
   namespace: {{ control.get('namespace', 'ccp') }}
   server: {{ control.kubernetes.get('protocol', 'http') }}://{{ control.kubernetes.host }}:{{ control.kubernetes.port }}
 verbose_level: 1
-log_file: null
+log_file: /var/log/ccp/ccp.log
 debug: {{ control.debug }}
-default_log_levels:
-- glanceclient=INFO
-- keystoneauth=INFO
-- neutronclient=INFO
-- novaclient=INFO
-- requests=WARN
-- stevedore=INFO
-- urllib3=WARN
-{%- if control.images|length() > 0 %}
-images:
-  {{ control.images|yaml(False)|indent(2) }}
+{%- for section in [
+    'configs',
+    'files',
+    'images',
+    'nodes',
+    'replicas',
+    'roles',
+    'sources',
+    'url',
+    'versions',
+]%}
+{%- if control[section]|length() > 0 %}
+{{ section }}:
+  {{ control[section]|yaml(False)|indent(2) }}
 {%- endif %}
-{%- if control.roles|length() > 0 %}
-roles:
-  {{ control.roles|yaml(False)|indent(2) }}
-{%- endif %}
-{%- if control.nodes|length() > 0 %}
-nodes:
-  {{ control.nodes|yaml(False)|indent(2) }}
-{%- endif %}
-{%- if control.replicas|length() > 0 %}
-replicas:
-  {{ control.replicas|yaml(False)|indent(2) }}
-{%- endif %}
-{%- if control.versions|length() > 0 %}
-versions:
-  {{ control.versions|yaml(False)|indent(2) }}
-{%- endif %}
-{%- if control.configs|length() > 0 %}
-configs:
-  {{ control.configs|yaml(False)|indent(2) }}
-{%- endif %}
-{%- if control.files|length() > 0 %}
-files:
-  {{ control.files|yaml(False)|indent(2) }}
-{%- endif %}
-{%- if control.url|length() > 0 %}
-url:
-  {{ control.url|yaml(False)|indent(2) }}
-{%- endif %}
+{%- endfor %}
 {%- if control.repos|length() > 0 %}
 repositories:
   clone: true
   clone_concurrency: 8
+  entrypoint_repo_name: entrypoint
   path: {{ control.dir.base }}/repos/
   repos:
     {{ control.repos|yaml(False)|indent(4) }}
   skip_empty: true
+{%- endif %}
+{%- if control.registry.address %}
+registry:
+  address: {{ control.registry.address }}
+builder:
+  push: true
 {%- endif %}

@@ -7,8 +7,6 @@ ccp_packages:
 
 {{ control.dir.base }}:
   virtualenv.manage:
-  - system_site_packages: True
-  - requirements: salt://ccp/files/requirements.txt
   - python: /usr/bin/python3
   - require:
     - pkg: ccp_packages
@@ -23,7 +21,17 @@ ccp_user:
   - require:
     - virtualenv: {{ control.dir.base }}
 
-ccp_dir:
+ccp_repos_dir:
+  file.directory:
+  - names:
+    - {{ control.dir.base }}/repos/
+  - mode: 755
+  - makedirs: true
+  - user: ccp
+  - require:
+    - user: ccp_user
+
+ccp_log_dir:
   file.directory:
   - names:
     - /var/log/ccp
@@ -31,14 +39,14 @@ ccp_dir:
   - makedirs: true
   - user: ccp
   - require:
-    - virtualenv: {{ control.dir.base }}
+    - user: ccp_user
 
 {%- if control.source.engine == 'git' %}
 
 ccp_source:
   git.latest:
   - name: {{ control.source.address }}
-  - target: {{ control.dir.base }}/fuel
+  - target: {{ control.dir.base }}/fuel_ccp
   - rev: {{ control.source.revision|default(control.source.branch) }}
   {%- if grains.saltversion >= "2015.8.0" %}
   - branch: {{ control.source.branch|default(control.source.revision) }}
@@ -47,8 +55,7 @@ ccp_source:
 
 ccp_install:
   cmd.watch:
-  - name: . {{ control.dir.base }}/bin/activate; python setup.py install
-  - cwd: {{ control.dir.base }}/fuel
+  - name: {{ control.dir.base }}/bin/pip install {{ control.dir.base }}/fuel_ccp
   - watch:
     - git: ccp_source
 
@@ -62,6 +69,13 @@ ccp_config:
   - user: ccp
   - mode: 600
   - require:
-    - file: ccp_dir
+    - virtualenv: {{ control.dir.base }}
+
+ccp_validate:
+  cmd.watch:
+  - name: {{ control.dir.base }}/bin/ccp validate
+  - user: ccp
+  - watch:
+    - file: ccp_config
 
 {%- endif %}
