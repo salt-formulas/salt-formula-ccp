@@ -31,6 +31,24 @@ ccp_repos_dir:
   - require:
     - user: ccp_user
 
+ccp_ssh_dir:
+  file.directory:
+  - names:
+    - {{ control.dir.base }}/.ssh/
+  - mode: 700
+  - makedirs: true
+  - user: ccp
+  - require:
+    - user: ccp_user
+
+ccp_ssh_key:
+  cmd.run:
+  - name: ssh-keygen -q -N '' -f /srv/ccp/.ssh/id_rsa
+  - user: ccp
+  - unless: test -f /srv/ccp/.ssh/id_rsa
+  - require:
+    - file: ccp_ssh_dir
+
 ccp_log_dir:
   file.directory:
   - names:
@@ -77,5 +95,7 @@ ccp_validate:
   - user: ccp
   - watch:
     - file: ccp_config
+  - require:
+    - cmd: ccp_ssh_key
 
 {%- endif %}
