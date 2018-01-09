@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/tcpcloud/salt-formula-ccp.git
 
 Package: salt-formula-ccp
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: ccp salt formula
  Install and configure ccp system.
