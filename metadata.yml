@@ -1,3 +1,3 @@
 name: "ccp"
 version: "0.1"
-source: "https://github.com/tcpcloud/salt-formula-ccp"
+source: "https://github.com/salt-formulas/salt-formula-ccp"
