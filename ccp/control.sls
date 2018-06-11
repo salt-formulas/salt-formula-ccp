@@ -31,6 +31,32 @@ ccp_repos_dir:
   - require:
     - user: ccp_user
 
+ccp_ssh_dir:
+  file.directory:
+  - names:
+    - {{ control.dir.base }}/.ssh/
+  - mode: 700
+  - makedirs: true
+  - user: ccp
+  - require:
+    - user: ccp_user
+
+ccp_ssh_key:
+  cmd.run:
+  - name: ssh-keygen -q -N '' -f /srv/ccp/.ssh/id_rsa
+  - user: ccp
+  - unless: test -f /srv/ccp/.ssh/id_rsa
+  - require:
+    - file: ccp_ssh_dir
+
+ccp_github_known_hosts:
+  ssh_known_hosts.present:
+  - user: ccp
+  - name: github.com
+  - fingerprint: 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+  - require:
+    - file: ccp_ssh_dir
+
 ccp_log_dir:
   file.directory:
   - names:
@@ -77,5 +103,8 @@ ccp_validate:
   - user: ccp
   - watch:
     - file: ccp_config
+  - require:
+    - cmd: ccp_ssh_key
+    - ssh_known_hosts: ccp_github_known_hosts
 
 {%- endif %}

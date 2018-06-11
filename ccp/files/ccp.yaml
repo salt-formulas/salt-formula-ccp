@@ -6,6 +6,12 @@ kubernetes:
   key_file: null
   namespace: {{ control.get('namespace', 'ccp') }}
   server: {{ control.kubernetes.get('protocol', 'http') }}://{{ control.kubernetes.host }}:{{ control.kubernetes.port }}
+{%- if control.expose_services and control.kubernetes.get('external_ip') %}
+  external_ips:
+    {%- for service in control.expose_services %}
+    {{ service }}: [{{ control.kubernetes.external_ip }}]
+    {%- endfor %}
+{%- endif %}
 verbose_level: 1
 log_file: /var/log/ccp/ccp.log
 debug: {{ control.debug }}
